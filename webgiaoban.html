@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB GIAO BAN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+   
+
+                           
+   <h1 class="title">GIAO BAN TRUNG TÂM Y TẾ LẤP VÒ</h1>
+
+<style>
+  .title {
+    text-align: center;
+  }
+</style>
+
+
+   <div style="margin-top: 50px;margin-left: 20px;">
+    
+    <iframe width="1300" height="750" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQhI8_8mPw6t0m_KJLPqBQ3H3jIg2UKpfCXCKV8vImBJn1j3NsWLVX4rbPYgvlVslGqbA-aRjOj-cOQ/pubhtml?gid=1988282970&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+</div>
+
+
+<div style="margin-top: 100px;margin-left: 20px;margin-bottom: 50px;">
+    <iframe width="1300" height="700" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMe4q4dDUGEvcr0VfVEY0MBlQgCCDBar9fDv1WXYSeu8TT-rfcWMjC2IKCisPfusbfRCi1WVtZshOm/pubhtml?widget=true&amp;headers=false"></iframe>
+</div>
+<ol type="" style="font-size:24px">
+
+<li>
+<a href="./giaobanngayn-1.html"><p style="font-size:24px">Số liệu ngày: <span id="current-date"></span></p>
+</a>
+</li>
+<li>
+<a href="./giaobanngayn-2.html"><p style="font-size:24px">Số liệu ngày: <span id="yesterday"></p>
+</a>
+</li>
+</ol>
+ 
+ <script>
+ function formattedDate(daysAgo) {
+        // Lấy ngày hiện tại
+        const today = new Date();
+		 today.setDate(today.getDate()- daysAgo);
+        
+        // Format ngày thành DD/MM/YYYY
+       return today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
+ }
+        // Hiển thị trong HTML
+		 // Hiển thị ngày hôm qua
+        document.getElementById("current-date").innerText = formattedDate(2);
+		 // Hiển thị ngày hôm kia
+		 document.getElementById("yesterday").innerText = formattedDate(3);
+    </script>
+
+       
+ <form id="myForm">
+  <div style=";margin-left: 20px;">
+    <label style="font-size:24px" for="date">3. Chọn ngày:</label>
+    <input style="font-size:24px" type="date" id="dateInput" name="date" required>
+     <button style="font-size:24px" type="submit">Gửi</button>
+     </div>
+    <li>
+    <a href="./thu.html"><p =style="font-size:24px"><span id="dateinput"></span>
+    </li>
+  </form>
+      
+      
+  <script>
+    document.getElementById('myForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const dateValue = document.getElementById('dateInput').value;
+
+      fetch('https://script.google.com/macros/s/AKfycbxIGI_jPzOpOWc1l-Z3rY9uvyYTb-lLEkFxjO_Or0ghP5LC88bhED9YD3ynfCss9eGlZw/exec', {
+        method: 'POST',
+        mode: 'no-cors', // hoặc bỏ dòng này nếu dùng Content-Type: application/json
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ date: dateValue })
+      })
+      .then(() => alert('Gửi thành công!'))
+      .catch(error => console.error('Lỗi:', error));
+    });
+  </script>
+  
+    <div style="margin-left: 20px;">
+  
+  <p style="font-size:24px">3. Ngày bạn chọn: <span id="forDate">Chưa chọn</span></p>
+
+ </div>
+  
+  
+  <script>
+    const dateInput = document.getElementById("dateInput");
+    const forDate = document.getElementById("forDate");
+
+    dateInput.addEventListener("change", function () {
+      const rawDate = new Date(this.value);
+      if (!isNaN(rawDate)) {
+        const day = String(rawDate.getDate()).padStart(2, '0');
+        const month = String(rawDate.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        const year = rawDate.getFullYear();
+
+        const ddmmyyyy = `${day}-${month}-${year}`;
+        forDate.textContent = ddmmyyyy;
+      } else {
+        forDate.textContent = "Ngày không hợp lệ";
+      }
+    });
+  </script>
+</body>
+</html>
